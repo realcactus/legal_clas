@@ -23,7 +23,7 @@ class TCNNConfig(object):
     embedding_dim = 100  # 词向量维度，这里字和词的向量都定为100维
     seq_length_c = 600  # 字符级序列长度
     seq_length_w = 600  # 词语级序列长度
-    num_classes = 13  # 类别数
+    num_classes = 14  # 类别数
     num_filters = 64  # 卷积核数目
     # kernel_sizes = "3,4,5,6,7"  # 卷积核尺寸
     kernel_sizes = "5,6,7"  # 卷积核尺寸
@@ -235,13 +235,13 @@ class TextCNN(object):
 
         with tf.device('/gpu:0'), tf.name_scope("score"):
             # 全连接层，后面接dropout以及relu激活
-            fc = tf.layers.dense(self.pool_combine_cw, self.config.hidden_dim, name='fc1')
-            fc = tf.contrib.layers.dropout(fc, self.keep_prob)
-            fc = tf.nn.relu(fc)
+            # fc = tf.layers.dense(self.pool_c, self.config.hidden_dim, name='fc1')
+            # fc = tf.contrib.layers.dropout(fc, self.keep_prob)
+            # fc = tf.nn.relu(fc)
             # fc = tf.nn.tanh(fc)
 
             # 分类器
-            self.logits = tf.layers.dense(fc, self.config.num_classes, name='fc2')
+            self.logits = tf.layers.dense(self.pool_combine_cw, self.config.num_classes, name='fc2')
             self.y_pred_cls = tf.argmax(tf.nn.softmax(self.logits), 1)  # 预测类别
 
         with tf.name_scope("optimize"):

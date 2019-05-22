@@ -19,8 +19,8 @@ from datetime import timedelta
 import numpy as np
 import tensorflow as tf
 from sklearn import metrics
-# from cnn_model_2input import TCNNConfig, TextCNN
-from rnn_attention_2input import TCNNConfig, TextCNN
+from cnn_model_2input import TCNNConfig, TextCNN
+# from rnn_attention_2input import TCNNConfig, TextCNN
 # from c_gru_attention_2input import TCNNConfig, TextCNN
 # from c_lstm import TCNNConfig, TextCNN
 
@@ -32,7 +32,7 @@ from data import data_loader_wordlevel
 from gensim.models import KeyedVectors
 from data.word2vec_helper import embedding_sentences, get_word2vec_dict
 
-base_dir = 'data/betadata-711depart'
+base_dir = 'data/cnews'
 train_dir = os.path.join(base_dir, 'train.txt')
 val_dir = os.path.join(base_dir, 'val.txt')
 test_dir = os.path.join(base_dir, 'test.txt')
@@ -277,7 +277,7 @@ if __name__ == '__main__':
     # print("最长长度： %i" % temp_val)
     # # config.seq_length = min(temp_val, 1500)
     config.seq_length_c = 1500
-    config.seq_length_w = 256
+    config.seq_length_w = 800
     # config.seq_length_c = 1014
     # config.seq_length_w = 1014
 
